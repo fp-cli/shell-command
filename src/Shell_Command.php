@@ -1,38 +1,38 @@
 <?php
 
-use WP_CLI\Utils;
+use FP_CLI\Utils;
 
-class Shell_Command extends WP_CLI_Command {
+class Shell_Command extends FP_CLI_Command {
 
 	/**
 	 * Opens an interactive PHP console for running and testing PHP code.
 	 *
-	 * `wp shell` allows you to evaluate PHP statements and expressions
-	 * interactively, from within a WordPress environment. Type a bit of code,
-	 * hit enter, and see the code execute right before you. Because WordPress
+	 * `fp shell` allows you to evaluate PHP statements and expressions
+	 * interactively, from within a FinPress environment. Type a bit of code,
+	 * hit enter, and see the code execute right before you. Because FinPress
 	 * is loaded, you have access to all the functions, classes and globals
-	 * that you can use within a WordPress plugin, for example.
+	 * that you can use within a FinPress plugin, for example.
 	 *
 	 * ## OPTIONS
 	 *
 	 * [--basic]
-	 * : Force the use of WP-CLI's built-in PHP REPL, even if the Boris or
+	 * : Force the use of FP-CLI's built-in PHP REPL, even if the Boris or
 	 * PsySH PHP REPLs are available.
 	 *
 	 * ## EXAMPLES
 	 *
 	 *     # Call get_bloginfo() to get the name of the site.
-	 *     $ wp shell
-	 *     wp> get_bloginfo( 'name' );
-	 *     => string(6) "WP-CLI"
+	 *     $ fp shell
+	 *     fp> get_bloginfo( 'name' );
+	 *     => string(6) "FP-CLI"
 	 */
 	public function __invoke( $_, $assoc_args ) {
-		$class = WP_CLI\Shell\REPL::class;
+		$class = FP_CLI\Shell\REPL::class;
 
 		$implementations = array(
 			\Psy\Shell::class,
 			\Boris\Boris::class,
-			WP_CLI\Shell\REPL::class,
+			FP_CLI\Shell\REPL::class,
 		);
 
 		if ( ! Utils\get_flag_value( $assoc_args, 'basic' ) ) {
@@ -53,9 +53,9 @@ class Shell_Command extends WP_CLI_Command {
 			$shell->run();
 		} else {
 			/**
-			 * @var class-string<WP_CLI\Shell\REPL> $class
+			 * @var class-string<FP_CLI\Shell\REPL> $class
 			 */
-			$repl = new $class( 'wp> ' );
+			$repl = new $class( 'fp> ' );
 			$repl->start();
 		}
 	}

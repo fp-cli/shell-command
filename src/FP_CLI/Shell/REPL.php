@@ -1,8 +1,8 @@
 <?php
 
-namespace WP_CLI\Shell;
+namespace FP_CLI\Shell;
 
-use WP_CLI;
+use FP_CLI;
 
 class REPL {
 
@@ -120,14 +120,14 @@ class REPL {
 	private static function create_prompt_cmd( $prompt, $history_path ) {
 		$prompt       = escapeshellarg( $prompt );
 		$history_path = escapeshellarg( $history_path );
-		if ( getenv( 'WP_CLI_CUSTOM_SHELL' ) ) {
-			$shell_binary = getenv( 'WP_CLI_CUSTOM_SHELL' );
+		if ( getenv( 'FP_CLI_CUSTOM_SHELL' ) ) {
+			$shell_binary = getenv( 'FP_CLI_CUSTOM_SHELL' );
 		} else {
 			$shell_binary = '/bin/bash';
 		}
 
 		if ( ! is_file( $shell_binary ) || ! is_readable( $shell_binary ) ) {
-			WP_CLI::error( "The shell binary '{$shell_binary}' is not valid. You can override the shell to be used through the WP_CLI_CUSTOM_SHELL environment variable." );
+			FP_CLI::error( "The shell binary '{$shell_binary}' is not valid. You can override the shell to be used through the FP_CLI_CUSTOM_SHELL environment variable." );
 		}
 
 		$shell_binary = escapeshellarg( $shell_binary );
@@ -147,7 +147,7 @@ class REPL {
 	private function set_history_file() {
 		$data = getcwd() . get_current_user();
 
-		$this->history_file = \WP_CLI\Utils\get_temp_dir() . 'wp-cli-history-' . md5( $data );
+		$this->history_file = \FP_CLI\Utils\get_temp_dir() . 'fp-cli-history-' . md5( $data );
 	}
 
 	private static function starts_with( $tokens, $line ) {

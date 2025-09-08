@@ -1,12 +1,12 @@
 <?php
 
-if ( ! class_exists( 'WP_CLI' ) ) {
+if ( ! class_exists( 'FP_CLI' ) ) {
 	return;
 }
 
-$wpcli_shell_autoloader = __DIR__ . '/vendor/autoload.php';
-if ( file_exists( $wpcli_shell_autoloader ) ) {
-	require_once $wpcli_shell_autoloader;
+$fpcli_shell_autoloader = __DIR__ . '/vendor/autoload.php';
+if ( file_exists( $fpcli_shell_autoloader ) ) {
+	require_once $fpcli_shell_autoloader;
 }
 
-WP_CLI::add_command( 'shell', 'Shell_Command' );
+FP_CLI::add_command( 'shell', 'Shell_Command' );

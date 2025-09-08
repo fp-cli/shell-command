@@ -1,14 +1,14 @@
-Feature: WordPress REPL
+Feature: FinPress REPL
 
   Scenario: Blank session
-    Given a WP install
+    Given a FP install
 
-    When I run `wp shell < /dev/null`
-    And I run `wp shell --basic < /dev/null`
+    When I run `fp shell < /dev/null`
+    And I run `fp shell --basic < /dev/null`
     Then STDOUT should be empty
 
   Scenario: Persistent environment
-    Given a WP install
+    Given a FP install
     And a session file:
       """
       function is_empty_string( $str ) { return strlen( $str ) == 0; }
@@ -16,14 +16,14 @@ Feature: WordPress REPL
       is_empty_string( $a );
       """
 
-    When I run `wp shell --basic < session`
+    When I run `fp shell --basic < session`
     Then STDOUT should contain:
       """
       bool(false)
       """
 
   Scenario: Multiline support (basic)
-    Given a WP install
+    Given a FP install
     And a session file:
       """
       function is_empty_string( $str ) { \
@@ -33,28 +33,28 @@ Feature: WordPress REPL
       function_exists( 'is_empty_string' );
       """
 
-    When I run `wp shell --basic < session`
+    When I run `fp shell --basic < session`
     Then STDOUT should contain:
       """
       bool(true)
       """
 
   Scenario: Use custom shell path
-    Given a WP install
+    Given a FP install
 
     And a session file:
       """
       return true;
       """
 
-    When I try `WP_CLI_CUSTOM_SHELL=/nonsense/path wp shell --basic < session`
+    When I try `FP_CLI_CUSTOM_SHELL=/nonsense/path fp shell --basic < session`
     Then STDOUT should be empty
     And STDERR should contain:
       """
       Error: The shell binary '/nonsense/path' is not valid.
       """
 
-    When I try `WP_CLI_CUSTOM_SHELL=/bin/bash wp shell --basic < session`
+    When I try `FP_CLI_CUSTOM_SHELL=/bin/bash fp shell --basic < session`
     Then STDOUT should contain:
       """
       bool(true)
