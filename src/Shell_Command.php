@@ -1,13 +1,13 @@
 <?php
 
-use FP_CLI\Utils;
+use FIN_CLI\Utils;
 
-class Shell_Command extends FP_CLI_Command {
+class Shell_Command extends FIN_CLI_Command {
 
 	/**
 	 * Opens an interactive PHP console for running and testing PHP code.
 	 *
-	 * `fp shell` allows you to evaluate PHP statements and expressions
+	 * `fin shell` allows you to evaluate PHP statements and expressions
 	 * interactively, from within a FinPress environment. Type a bit of code,
 	 * hit enter, and see the code execute right before you. Because FinPress
 	 * is loaded, you have access to all the functions, classes and globals
@@ -16,23 +16,23 @@ class Shell_Command extends FP_CLI_Command {
 	 * ## OPTIONS
 	 *
 	 * [--basic]
-	 * : Force the use of FP-CLI's built-in PHP REPL, even if the Boris or
+	 * : Force the use of FIN-CLI's built-in PHP REPL, even if the Boris or
 	 * PsySH PHP REPLs are available.
 	 *
 	 * ## EXAMPLES
 	 *
 	 *     # Call get_bloginfo() to get the name of the site.
-	 *     $ fp shell
-	 *     fp> get_bloginfo( 'name' );
-	 *     => string(6) "FP-CLI"
+	 *     $ fin shell
+	 *     fin> get_bloginfo( 'name' );
+	 *     => string(6) "FIN-CLI"
 	 */
 	public function __invoke( $_, $assoc_args ) {
-		$class = FP_CLI\Shell\REPL::class;
+		$class = FIN_CLI\Shell\REPL::class;
 
 		$implementations = array(
 			\Psy\Shell::class,
 			\Boris\Boris::class,
-			FP_CLI\Shell\REPL::class,
+			FIN_CLI\Shell\REPL::class,
 		);
 
 		if ( ! Utils\get_flag_value( $assoc_args, 'basic' ) ) {
@@ -53,9 +53,9 @@ class Shell_Command extends FP_CLI_Command {
 			$shell->run();
 		} else {
 			/**
-			 * @var class-string<FP_CLI\Shell\REPL> $class
+			 * @var class-string<FIN_CLI\Shell\REPL> $class
 			 */
-			$repl = new $class( 'fp> ' );
+			$repl = new $class( 'fin> ' );
 			$repl->start();
 		}
 	}

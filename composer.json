@@ -1,8 +1,8 @@
 {
-    "name": "fp-cli/shell-command",
-    "type": "fp-cli-package",
+    "name": "fin-cli/shell-command",
+    "type": "fin-cli-package",
     "description": "Opens an interactive PHP console for running and testing PHP code.",
-    "homepage": "https://github.com/fp-cli/shell-command",
+    "homepage": "https://github.com/fin-cli/shell-command",
     "license": "MIT",
     "authors": [
         {
@@ -12,10 +12,10 @@
         }
     ],
     "require": {
-        "fp-cli/fp-cli": "^2.12"
+        "fin-cli/fin-cli": "^2.12"
     },
     "require-dev": {
-        "fp-cli/fp-cli-tests": "^5"
+        "fin-cli/fin-cli-tests": "^5"
     },
     "config": {
         "process-timeout": 7200,
@@ -64,6 +64,6 @@
         ]
     },
     "support": {
-        "issues": "https://github.com/fp-cli/shell-command/issues"
+        "issues": "https://github.com/fin-cli/shell-command/issues"
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace FP_CLI\Shell;
+namespace FIN_CLI\Shell;
 
-use FP_CLI;
+use FIN_CLI;
 
 class REPL {
 
@@ -86,12 +86,12 @@ class REPL {
 			// @phpstan-ignore booleanNot.alwaysTrue
 			$prompt = ( ! $done && false !== $full_line ) ? '--> ' : $this->prompt;
 
-			$fp = popen( self::create_prompt_cmd( $prompt, $this->history_file ), 'r' );
+			$fin = popen( self::create_prompt_cmd( $prompt, $this->history_file ), 'r' );
 
-			$line = $fp ? fgets( $fp ) : '';
+			$line = $fin ? fgets( $fin ) : '';
 
-			if ( $fp ) {
-				pclose( $fp );
+			if ( $fin ) {
+				pclose( $fin );
 			}
 
 			if ( ! $line ) {
@@ -120,14 +120,14 @@ class REPL {
 	private static function create_prompt_cmd( $prompt, $history_path ) {
 		$prompt       = escapeshellarg( $prompt );
 		$history_path = escapeshellarg( $history_path );
-		if ( getenv( 'FP_CLI_CUSTOM_SHELL' ) ) {
-			$shell_binary = getenv( 'FP_CLI_CUSTOM_SHELL' );
+		if ( getenv( 'FIN_CLI_CUSTOM_SHELL' ) ) {
+			$shell_binary = getenv( 'FIN_CLI_CUSTOM_SHELL' );
 		} else {
 			$shell_binary = '/bin/bash';
 		}
 
 		if ( ! is_file( $shell_binary ) || ! is_readable( $shell_binary ) ) {
-			FP_CLI::error( "The shell binary '{$shell_binary}' is not valid. You can override the shell to be used through the FP_CLI_CUSTOM_SHELL environment variable." );
+			FIN_CLI::error( "The shell binary '{$shell_binary}' is not valid. You can override the shell to be used through the FIN_CLI_CUSTOM_SHELL environment variable." );
 		}
 
 		$shell_binary = escapeshellarg( $shell_binary );
@@ -147,7 +147,7 @@ class REPL {
 	private function set_history_file() {
 		$data = getcwd() . get_current_user();
 
-		$this->history_file = \FP_CLI\Utils\get_temp_dir() . 'fp-cli-history-' . md5( $data );
+		$this->history_file = \FIN_CLI\Utils\get_temp_dir() . 'fin-cli-history-' . md5( $data );
 	}
 
 	private static function starts_with( $tokens, $line ) {
